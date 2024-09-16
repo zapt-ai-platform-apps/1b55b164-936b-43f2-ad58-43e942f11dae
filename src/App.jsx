@@ -51,7 +51,10 @@ ${style() ? `- Style: ${style()}` : ''}
 ${language() ? `- Language or cultural preferences: ${language()}` : ''}
 ${startingLetter() ? `- Starting letter: ${startingLetter()}` : ''}
 ${meaning() ? `- Desired meaning: ${meaning()}` : ''}
-Provide the names as a JSON array of strings.`;
+Provide the names as a JSON object with a "names" property, which is an array of 10 strings. The format should be:
+{
+  "names": ["name1", "name2", ..., "name10"]
+}`;
     const dataInput = {
       prompt: prompt,
       response_type: 'json',
@@ -59,8 +62,12 @@ Provide the names as a JSON array of strings.`;
     const output = await createEvent('chatgpt_request', dataInput);
     if (output && output.response) {
       try {
-        const names = JSON.parse(output.response);
-        setNameSuggestions(names);
+        const responseObj = JSON.parse(output.response);
+        if (responseObj.names) {
+          setNameSuggestions(responseObj.names);
+        } else {
+          console.error('Response does not contain names property');
+        }
       } catch (e) {
         console.error('Error parsing names:', e);
       }
@@ -74,14 +81,26 @@ Provide the names as a JSON array of strings.`;
     setSelectedName(name);
     setLoadingPoem(true);
     setPoem('');
-    const prompt = `Please write a heartwarming poem about the name "${name}".`;
+    const prompt = `Please write a heartwarming poem about the name "${name}". Provide the response as a JSON object with a "poem" property containing the poem as a string. The format should be:
+{
+  "poem": "Your poem here"
+}`;
     const dataInput = {
       prompt: prompt,
-      response_type: 'text',
+      response_type: 'json',
     };
     const output = await createEvent('chatgpt_request', dataInput);
     if (output && output.response) {
-      setPoem(output.response);
+      try {
+        const responseObj = JSON.parse(output.response);
+        if (responseObj.poem) {
+          setPoem(responseObj.poem);
+        } else {
+          console.error('Response does not contain poem property');
+        }
+      } catch (e) {
+        console.error('Error parsing poem:', e);
+      }
     }
     setLoadingPoem(false);
   };
@@ -101,7 +120,7 @@ Provide the names as a JSON array of strings.`;
   };
 
   return (
-    <div class="flex flex-col items-center justify-center min-h-screen bg-gray-100 text-gray-800">
+    <div class="flex flex-col items-center justify-center h-full bg-gray-100 text-gray-800">
       <Show when={currentPage() === 'login'}>
         <div class="flex flex-col items-center w-full px-4">
           <h1 class="text-2xl font-bold mb-2">Sign in with ZAPT</h1>
@@ -172,6 +191,7 @@ Provide the names as a JSON array of strings.`;
             <button
               class="cursor-pointer px-4 py-2 bg-gray-500 text-white rounded hover:bg-gray-600 mb-4"
               onClick={goBack}
+              disabled={loadingPoem()}
             >
               Go Back
             </button>
