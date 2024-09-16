@@ -103,10 +103,16 @@ Provide the names as a JSON array of strings.`;
   return (
     <div class="flex flex-col items-center justify-center min-h-screen bg-gray-100 text-gray-800">
       <Show when={currentPage() === 'login'}>
-        <div class="flex flex-col items-center">
+        <div class="flex flex-col items-center w-full px-4">
           <h1 class="text-2xl font-bold mb-2">Sign in with ZAPT</h1>
           <a href="https://www.zapt.ai" target="_blank" class="mb-4 text-blue-500 hover:underline">Visit ZAPT</a>
-          <Auth supabaseClient={supabase} providers={['google', 'facebook', 'apple']} appearance={{ theme: ThemeSupa }} />
+          <div class="w-full max-w-xl">
+            <Auth
+              supabaseClient={supabase}
+              providers={['google', 'facebook', 'apple']}
+              appearance={{ theme: ThemeSupa }}
+            />
+          </div>
         </div>
       </Show>
       <Show when={currentPage() === 'homePage'}>
