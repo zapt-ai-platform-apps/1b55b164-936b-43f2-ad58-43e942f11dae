@@ -224,8 +224,8 @@ Provide the names as a JSON object with a "names" property, which is an array of
               <Show when={!loadingPoem() && poem()}>
                 <div class="mt-6 p-4 bg-gray-50 rounded-lg border border-gray-200 w-full">
                   <h3 class="text-xl font-semibold mb-2">Poem for "{selectedName()}"</h3>
-                  <div class="text-gray-700 whitespace-pre-wrap">
-                    {poem()}
+                  <div class="prose text-gray-700">
+                    <SolidMarkdown children={poem()} />
                   </div>
                 </div>
               </Show>

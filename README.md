@@ -34,7 +34,7 @@ Welcome to the Name Suggestions App! This application helps you find unique and 
 
 1. **Select a Name**: Click on any name that resonates with you.
 2. **Generating Poem**: A loading message indicates that a poem is being generated for the selected name.
-3. **View Poem**: Once ready, the poem appears below the list of names, formatted beautifully to enhance readability.
+3. **View Poem**: Once ready, the poem appears below the list of names, beautifully formatted using markdown to enhance readability and style.
 
 ### 5. Exploring More Options
 
@@ -51,6 +51,7 @@ Welcome to the Name Suggestions App! This application helps you find unique and 
 - **Secure Authentication**: Your credentials are handled securely with trusted providers.
 - **Full-Screen Utilization**: The app utilizes the full viewport height, eliminating unnecessary whitespace.
 - **Styled Components**: Consistent styling with hover effects enhances interactivity.
+- **Markdown Rendering**: Poems are displayed using markdown formatting for better readability and aesthetics.
 - **Accessibility**: Buttons and inputs are designed with accessibility in mind, including focus states and labels.
 
 Enjoy your journey in discovering the perfect name!
