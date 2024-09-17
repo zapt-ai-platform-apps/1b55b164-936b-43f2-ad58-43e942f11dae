@@ -61,15 +61,10 @@ Provide the names as a JSON object with a "names" property, which is an array of
     };
     const output = await createEvent('chatgpt_request', dataInput);
     if (output) {
-      try {
-        const responseObj = JSON.parse(output);
-        if (responseObj.names) {
-          setNameSuggestions(responseObj.names);
-        } else {
-          console.error('Response does not contain names property');
-        }
-      } catch (e) {
-        console.error('Error parsing names:', e);
+      if (output.names) {
+        setNameSuggestions(output.names);
+      } else {
+        console.error('Response does not contain names property');
       }
     } else {
       console.error('No output received from createEvent');
@@ -93,15 +88,10 @@ Provide the names as a JSON object with a "names" property, which is an array of
     };
     const output = await createEvent('chatgpt_request', dataInput);
     if (output) {
-      try {
-        const responseObj = JSON.parse(output);
-        if (responseObj.poem) {
-          setPoem(responseObj.poem);
-        } else {
-          console.error('Response does not contain poem property');
-        }
-      } catch (e) {
-        console.error('Error parsing poem:', e);
+      if (output.poem) {
+        setPoem(output.poem);
+      } else {
+        console.error('Response does not contain poem property');
       }
     } else {
       console.error('No output received from createEvent');
@@ -207,8 +197,8 @@ Provide the names as a JSON object with a "names" property, which is an array of
                 <For each={nameSuggestions()}>
                   {(name) => (
                     <li
-                      class="cursor-pointer bg-white p-4 rounded shadow hover:bg-gray-200"
-                      onClick={() => generatePoem(name)}
+                      class={`bg-white p-4 rounded shadow hover:bg-gray-200 ${loadingPoem() ? '' : 'cursor-pointer'}`}
+                      onClick={!loadingPoem() ? () => generatePoem(name) : null}
                     >
                       {name}
                     </li>
