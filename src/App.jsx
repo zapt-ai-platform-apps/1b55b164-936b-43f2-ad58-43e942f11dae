@@ -120,9 +120,9 @@ Provide the names as a JSON object with a "names" property, which is an array of
   };
 
   return (
-    <div class="flex flex-col items-center justify-center h-full bg-gray-100 text-gray-800">
+    <div class="flex flex-col items-center justify-center min-h-screen bg-gray-100 text-gray-800">
       <Show when={currentPage() === 'login'}>
-        <div class="flex flex-col items-center w-full px-4">
+        <div class="flex flex-col items-center w-full h-full px-4">
           <h1 class="text-2xl font-bold mb-2">Sign in with ZAPT</h1>
           <a href="https://www.zapt.ai" target="_blank" class="mb-4 text-blue-500 hover:underline">Visit ZAPT</a>
           <div class="w-full max-w-xl">

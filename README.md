@@ -46,5 +46,7 @@ Welcome to the Name Suggestions App! This app helps you find unique and beautifu
 - **Secure Authentication:** Your login credentials are securely handled through trusted social login providers.
 - **Loading States:** The app provides visual feedback during loading times to enhance the user experience.
 - **Prevent Double Actions:** Buttons are disabled during loading to prevent multiple submissions.
+- **Centered Layout:** The app's content is centered both vertically and horizontally on the screen.
+- **No Whitespace Below App:** The app utilizes the full viewport height to eliminate any unnecessary whitespace below the content.
 
 Enjoy exploring beautiful names and heartfelt poems tailored just for you!
