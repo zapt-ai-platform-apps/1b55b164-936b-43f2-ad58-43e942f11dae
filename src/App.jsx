@@ -2,6 +2,7 @@ import { createSignal, createEffect, onMount, Show, For } from 'solid-js';
 import { supabase, createEvent } from './supabaseClient';
 import { Auth } from '@supabase/auth-ui-solid';
 import { ThemeSupa } from '@supabase/auth-ui-shared';
+import Markdown from 'solid-markdown';
 
 function App() {
   const [user, setUser] = createSignal(null);
@@ -78,20 +79,17 @@ Provide the names as a JSON object with a "names" property, which is an array of
     setSelectedName(name);
     setLoadingPoem(true);
     setPoem('');
-    const prompt = `Please write a heartwarming poem about the name "${name}". Provide the response as a JSON object with a "poem" property containing the poem as a string. The format should be:
-{
-  "poem": "Your poem here"
-}`;
+    const prompt = `Please write a heartwarming poem about the name "${name}". Provide the response as a markdown string.`;
     const dataInput = {
       prompt: prompt,
-      response_type: 'json',
+      response_type: 'text',
     };
     const output = await createEvent('chatgpt_request', dataInput);
     if (output) {
-      if (output.poem) {
-        setPoem(output.poem);
+      if (output.response) {
+        setPoem(output.response);
       } else {
-        console.error('Response does not contain poem property');
+        console.error('Response does not contain expected property');
       }
     } else {
       console.error('No output received from createEvent');
@@ -212,7 +210,7 @@ Provide the names as a JSON object with a "names" property, which is an array of
             <Show when={!loadingPoem() && poem()}>
               <div class="mt-4 p-4 bg-white rounded shadow w-full max-w-2xl">
                 <h2 class="text-2xl font-bold mb-2">Poem for "{selectedName()}"</h2>
-                <p>{poem()}</p>
+                <Markdown class="prose">{poem()}</Markdown>
               </div>
             </Show>
           </div>

@@ -31,7 +31,7 @@ Welcome to the Name Suggestions App! This app helps you find unique and beautifu
 1. Click on any name from the list that you like.
 2. The app will generate a heartwarming poem about the selected name.
 3. While the poem is being generated, a loading message will be displayed.
-4. Once ready, the poem will appear below the list of names.
+4. Once ready, the poem will appear below the list of names, beautifully formatted with line breaks and styling.
 
 ### 5. Exploring More Names
 
@@ -41,6 +41,7 @@ Welcome to the Name Suggestions App! This app helps you find unique and beautifu
 
 ## Additional Features
 
+- **Markdown Rendering:** The poem is displayed using rich formatting, preserving new lines and styling, for an enhanced reading experience.
 - **Responsive Design:** The app is optimized for all screen sizes, ensuring a seamless experience on both mobile and desktop devices.
 - **User-Friendly Interface:** The intuitive layout makes it easy to navigate through the app.
 - **Secure Authentication:** Your login credentials are securely handled through trusted social login providers.
