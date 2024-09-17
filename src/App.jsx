@@ -60,9 +60,9 @@ Provide the names as a JSON object with a "names" property, which is an array of
       response_type: 'json',
     };
     const output = await createEvent('chatgpt_request', dataInput);
-    if (output && output.response) {
+    if (output) {
       try {
-        const responseObj = JSON.parse(output.response);
+        const responseObj = JSON.parse(output);
         if (responseObj.names) {
           setNameSuggestions(responseObj.names);
         } else {
@@ -71,6 +71,8 @@ Provide the names as a JSON object with a "names" property, which is an array of
       } catch (e) {
         console.error('Error parsing names:', e);
       }
+    } else {
+      console.error('No output received from createEvent');
     }
     setLoadingNames(false);
   };
@@ -90,9 +92,9 @@ Provide the names as a JSON object with a "names" property, which is an array of
       response_type: 'json',
     };
     const output = await createEvent('chatgpt_request', dataInput);
-    if (output && output.response) {
+    if (output) {
       try {
-        const responseObj = JSON.parse(output.response);
+        const responseObj = JSON.parse(output);
         if (responseObj.poem) {
           setPoem(responseObj.poem);
         } else {
@@ -101,6 +103,8 @@ Provide the names as a JSON object with a "names" property, which is an array of
       } catch (e) {
         console.error('Error parsing poem:', e);
       }
+    } else {
+      console.error('No output received from createEvent');
     }
     setLoadingPoem(false);
   };

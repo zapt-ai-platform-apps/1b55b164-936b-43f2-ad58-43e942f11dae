@@ -53,7 +53,7 @@ export async function createEvent(eventType, dataInput) {
       subscriptionPromise,
       completionCheckPromise.then(({ data, error }) => {
         if (error) throw error;
-        return data.response
+        return data.response;
       })
     ]);
 
