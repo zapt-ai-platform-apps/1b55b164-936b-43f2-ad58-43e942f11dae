@@ -17,6 +17,8 @@ function App() {
   const [language, setLanguage] = createSignal('');
   const [startingLetter, setStartingLetter] = createSignal('');
   const [meaning, setMeaning] = createSignal('');
+  const [audioUrl, setAudioUrl] = createSignal('');
+  const [loadingAudio, setLoadingAudio] = createSignal(false);
 
   const checkUserSignedIn = async () => {
     const { data: { user } } = await supabase.auth.getUser();
@@ -79,6 +81,7 @@ Provide the names as a JSON object with a "names" property, which is an array of
     setSelectedName(name);
     setLoadingPoem(true);
     setPoem('');
+    setAudioUrl('');
     const prompt = `Please write a heartwarming poem about the name "${name}".`;
     const dataInput = {
       prompt: prompt,
@@ -93,6 +96,22 @@ Provide the names as a JSON object with a "names" property, which is an array of
     setLoadingPoem(false);
   };
 
+  const generateAudio = async () => {
+    if (loadingAudio()) return;
+    setLoadingAudio(true);
+    setAudioUrl('');
+    const dataInput = {
+      text: poem(),
+    };
+    const output = await createEvent('text_to_speech', dataInput);
+    if (output) {
+      setAudioUrl(output);
+    } else {
+      console.error('No output received from createEvent for text_to_speech');
+    }
+    setLoadingAudio(false);
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (loadingNames()) return;
@@ -105,6 +124,7 @@ Provide the names as a JSON object with a "names" property, which is an array of
     setNameSuggestions([]);
     setSelectedName('');
     setPoem('');
+    setAudioUrl('');
   };
 
   const handleSignOut = async () => {
@@ -195,7 +215,7 @@ Provide the names as a JSON object with a "names" property, which is an array of
               <button
                 class="cursor-pointer px-4 py-2 bg-gray-500 text-white rounded hover:bg-gray-600 mb-4"
                 onClick={goBack}
-                disabled={loadingPoem()}
+                disabled={loadingPoem() || loadingAudio()}
               >
                 Go Back
               </button>
@@ -208,9 +228,9 @@ Provide the names as a JSON object with a "names" property, which is an array of
                     {(name) => (
                       <li
                         class={`bg-gray-100 p-4 rounded hover:bg-gray-200 ${
-                          loadingPoem() ? '' : 'cursor-pointer'
+                          loadingPoem() || loadingAudio() ? '' : 'cursor-pointer'
                         }`}
-                        onClick={!loadingPoem() ? () => generatePoem(name) : null}
+                        onClick={!loadingPoem() && !loadingAudio() ? () => generatePoem(name) : null}
                       >
                         {name}
                       </li>
@@ -226,6 +246,21 @@ Provide the names as a JSON object with a "names" property, which is an array of
                   <h3 class="text-xl font-semibold mb-2">Poem for "{selectedName()}"</h3>
                   <div class="prose text-gray-700">
                     <SolidMarkdown children={poem()} />
+                  </div>
+                  <div class="mt-4">
+                    <button
+                      class="cursor-pointer px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 mr-2"
+                      onClick={generateAudio}
+                      disabled={loadingAudio()}
+                    >
+                      {loadingAudio() ? 'Generating Audio...' : 'Listen to Poem'}
+                    </button>
+                    <Show when={loadingAudio()}>
+                      <p class="mt-2">Generating audio...</p>
+                    </Show>
+                    <Show when={audioUrl()}>
+                      <audio controls src={audioUrl()} class="mt-4 w-full" />
+                    </Show>
                   </div>
                 </div>
               </Show>

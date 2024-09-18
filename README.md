@@ -1,6 +1,6 @@
 # Name Suggestions App
 
-Welcome to the Name Suggestions App! This application helps you find unique and beautiful baby names tailored to your preferences and generates a heartwarming poem for any name you like.
+Welcome to the Name Suggestions App! This application helps you find unique and beautiful baby names tailored to your preferences, generates a heartwarming poem for any name you like, and now allows you to listen to the poem read aloud.
 
 ## User Journeys
 
@@ -30,11 +30,14 @@ Welcome to the Name Suggestions App! This application helps you find unique and 
 2. **Name List**: The app displays a list of 10 unique and beautiful baby names matching your preferences.
 3. **Browse Names**: Scroll through the names presented in a responsive grid layout.
 
-### 4. Generating a Poem
+### 4. Generating a Poem and Listening to It
 
 1. **Select a Name**: Click on any name that resonates with you.
 2. **Generating Poem**: A loading message indicates that a poem is being generated for the selected name.
 3. **View Poem**: Once ready, the poem appears below the list of names, beautifully formatted using markdown to enhance readability and style.
+4. **Listen to Poem**: Click the **"Listen to Poem"** button to hear the poem read aloud.
+   - **Generating Audio**: A loading message appears while the audio is being generated.
+   - **Playback**: Once ready, an audio player appears, allowing you to play, pause, and control the volume of the poem audio.
 
 ### 5. Exploring More Options
 
@@ -44,6 +47,7 @@ Welcome to the Name Suggestions App! This application helps you find unique and 
 
 ## Features Overview
 
+- **Text-to-Speech Integration**: Listen to the generated poem with a simple click, enhancing the emotional connection to the names.
 - **Responsive Design**: The app is optimized for all screen sizes, ensuring a seamless experience on mobile and desktop devices.
 - **User-Friendly Interface**: Clean layout and intuitive navigation make the app easy to use.
 - **Loading States**: Visual feedback during loading times enhances the user experience.
@@ -54,4 +58,4 @@ Welcome to the Name Suggestions App! This application helps you find unique and 
 - **Markdown Rendering**: Poems are displayed using markdown formatting for better readability and aesthetics.
 - **Accessibility**: Buttons and inputs are designed with accessibility in mind, including focus states and labels.
 
-Enjoy your journey in discovering the perfect name!
+Enjoy your journey in discovering the perfect name and experiencing it through both sight and sound!
